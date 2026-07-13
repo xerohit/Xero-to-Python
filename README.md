@@ -72,9 +72,9 @@ If these notes helped you, consider:
 
 <p align="center"><b>Happy Learning! 🐍✨</b></p>
 
-<div style="text-align: right;">
+<p align="right">
     <a href="https://github.com/xerohit/Xero-to-Python/blob/main/00_Introduction/00_Introduction.md"><i>Introduction to Python >></i></a>
-</div>
+</p>
 
 
 

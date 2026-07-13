@@ -78,6 +78,6 @@ Multiline comment takes multiple lines.
 """
 ```
 --- 
-<div style="text-align: right;">
+<p align="right">
     <a href="https://github.com/xerohit/Xero-to-Python/blob/main/01_Variables_&_Data_Types/01_Variables_&_Data_Types.md"><i>Variables & Data Types >></i></a>
-</div>
+</p>
