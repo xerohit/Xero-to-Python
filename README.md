@@ -1,1 +1,1 @@
-#Xero to Python
+#Xero to Python: Start learning Python from zero.
