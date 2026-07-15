@@ -6,9 +6,16 @@
 - [Data Types](#data-types)
     - [Typecasting](#typecasting)
 
+## Built-in Functions
+Built-in functions in Python are predefined functions that are globally available in the interpreter, meaning you can use them instantly without writing any import statements. They provide optimized, standard solutions for common programming tasks like printing data, performing mathematical calculations, and transforming data types.  
+An exhaustive list of Python built-in functions is available in [python documentation](https://docs.python.org/3/library/functions.html).  
+<p align="center">
+  <img src="../images/builtin_functions.png" alt="Built-in Functions" width="700">
+</p>
+
 ## Variables
-Variables are named containers used to store data (like numbers, text, etc.) in a computer memory. It’s a name given to a memory location to store a value.
-Naming Convention:
+Variables are named containers used to store data (like numbers, text, etc.) in a computer memory. It’s a name given to a memory location to store a value.  
+### Naming Convention
 - A variable name can only contain *alphanumeric characters* and *underscore* (`A-Z`, `a-z`, `0-9`, `_`). But it cannot start with a number.
 - Variable names cannot contain spaces or special symbols like -, @, #, %, !, etc.
 - A variable can have a short name (like x, y, z), but a more descriptive name (firstname, lastname, age, country) is highly recommended.
@@ -72,15 +79,13 @@ age = age + 12
 print(age)    # 29
 
 # Compound assignment operator
-age -= 20     # Subtract and Assign (age = age-20)
-age *= 5      # Multiply and Assign (age = age*5)
+age -= 20     # Subtract and Assign (age = age - 20)
+age *= 5      # Multiply and Assign (age = age * 5)
 print(age)    # 45
 
-"""
-This is called compound assignment operator or shorthand operator. If '=' is used right after arithmetic
-operator, arithmetic operation is performed first and then it is assigned to the variable.
-"""
 ```
+This is called compound assignment operator or shorthand operator. If `=` is used right after arithmetic
+operator, arithmetic operation is performed first and then it is assigned to the variable.
 
 ## Data Types
 Data types define the type of value a variable can store. It decides the memory size and operations allowed.
@@ -100,10 +105,8 @@ Data types define the type of value a variable can store. It decides the memory 
  
 
 
-**`type()` Function:**
-
-- It is used to find the data type of a given variable in python.
-- **Data types are classes and variables are instances (objects) of these classes.**
+### `type()` Function
+It is a built-in function used to find the data type of a given value in python.
 
 ```python
 print(type(10))         # <class 'int'>
@@ -116,12 +119,21 @@ print(type((1, 2)))     # <class 'tuple'>
 print(type({1, 2}))     # <class 'set'>
 print(type({"a": 1}))   # <class 'dict'>
 print(type(None))       # <class 'NoneType'>
- 
+```
+**Data types are classes and variables are instances (objects) of these classes.**
+
+```python
 age = 10          # age is an object (instance of class 'int')
 print(isinstance(age, int))    # True
  
 is_logged_in = False   # is_logged_in is an object (instance of class 'bool')
 print(isinstance(is_logged_in, bool))   # True
+```
+`bool` is actually a subclass of `int` in Python. That's why, True behaves like 1 and False behaves like 0 while performing arithmetic operations.
+```python
+print(issubclass(bool, int))   # True
+print(isinstance(True, int))   # True
+print(True + True)    # 2
 ```
 
 ### Typecasting
@@ -129,13 +141,29 @@ print(isinstance(is_logged_in, bool))   # True
 Typecasting (or Type Conversion) is the process of converting one data type into another. Sometimes programs require changing the type of a variable so that operations can be performed correctly.
 
 ```python
+# Example: cannot add a str and int together
 a = "10"       # String
 b = 5          # Integer
-print(a + b)   # TypeError: can only concatenate str (not "int") to str
+print(a + b)   # TypeError
 ```
 
-1. **Explicit Typecasting**  
-Done manually by the programmer, using functions like `int()`, `float()`, `str()`, `bool()`, `list()`, etc.
+1. **Implicit Typecasting (Type Promotion)**  
+Done automatically by Python to avoid data loss.
+
+```python
+# int → float
+total = 5 + 2.5     # 5 → 5.0
+print(total)        # 7.5
+print(type(total))  # <class 'float'>
+
+# bool → int
+is_active = True    # True → 1
+credits = 5
+print(is_active + credits)   # 6 
+```
+
+2. **Explicit Typecasting**  
+Done manually by the programmer, using built-in functions like `int()`, `float()`, `str()`, `bool()`, `list()`, etc.
 
 ```python
 # int → float
@@ -166,15 +194,20 @@ print(pi_float)   # 3.14
 age_str = "50"
 age_int = int(age_str)  
 print(age_int)   # 50
+```
 
+All int/float values can be converted to string, but a string can only be converted to int/float if it is a VALID LITERAL for that target type.
 
-'''
-All int/float values can be converted to str, but a string can only be 
-converted to int/float if it is a VALID LITERAL for that target type.
-'''
+```python
 print(int('2.5'))   # ValueError: invalid literal for int()
-print(int(float('2.5')))  # 2 (convert to float first)
 
+# To convert a float_string to int, convert it to float first.
+print(int(float('2.5')))  # 2 
+```
+
+String can be easily converted to list of characters but doing the reverse will result in a string of list of characters.
+
+```python
 # str → list
 greet = "Hello"
 char_list = list(greet)
@@ -182,48 +215,85 @@ print(char_list)   # ['H', 'e', 'l', 'l', 'o']
 
 # Can't convert list to str directly
 print(str(char_list))   # "['H', 'e', 'l', 'l', 'o']"
+```
 
-# list → set (also removes duplicates)
-numbers_with_duplicates = [1, 2, 2, 3, 3, 3]
-unique_numbers = set(numbers_with_duplicates)
-print(unique_numbers)   # {1, 2, 3}
+Only falsy values return False in boolean i.e. 0 , 0.0 , 0j , "" , () , {} , [] , False , None. 
 
+```python
 # str → bool
 flag_str = "False"
 flag_bool = bool(flag_str)
-print(flag_bool)   # True ... Huh? Why?
+print(flag_bool)   # True (cuz "False" is not an empty string "")
 
-'''
-Only falsy values return False in boolean i.e. 0 , 0.0 , 0j , "" , () , {} , [] , False , None. 
-bool(0)   # False
-bool('0') # True
-'''
+# int → bool
+print(bool(0))   # False
 ```
 
-2. **Implicit Typecasting (Type Promotion)**  
-Done automatically by Python to avoid data loss.
+## Input and Output
+
+### `Input()` Function
+The **`input()`** function is used to take input from the user via the keyboard. It always *returns a string*, regardless of what the user types. To use the input as a number, it must be explicitly converted (type casting).
 
 ```python
-# int → float
-total = 5 + 2.5     # 5 → 5.0
-print(total)        # 7.5
-print(type(total))  # <class 'float'>
-
-# bool → int
-is_active = True
-credits = 5
-print(is_active + credits)   # 6 
-
-'''
-In Python, True behaves like 1, False behaves like 0
-`bool` behaves like `int` in arithmetic because `bool` is actually a subclass of `int` in Python.
-'''
-print(issubclass(bool, int))   # True
-print(isinstance(True, int))   # True
-print(True + True)    # 2
+print("Hello, What is your name?")
+name = input()              # It takes input as string from user.
+print("What is your age?")
+age = int(input())          # Explicit typecasting: str → int
 ```
+Taking input and assigning it to a variable in the same line:
+
+```python
+radius = int(input("Enter a number: "))
+print('Area of circle = ', 3.14*radius*radius)
+
+#Output:
+Enter a number: 10
+Area of circle = 314
+```
+
+### `Print()` Function
+The **`print()`** function allows the user to print output of the code on the terminal.
+```python
+# Syntax
+print(value1, value2, ..., sep=' ', end='\n')
+```
+
+- **`sep`** – separator between multiple values (Default: space " ")
+- **`end`** – what to print at the end (Default: newline \n)
+
+```python
+print("Hello, World!")    # Output: Hello, World!
+
+# Use commas to print multiple values
+print("Python", "is", "fun")                # Output: Python is fun
+print("Python", "is", "fun", sep="-")       # Output: Python-is-fun
+print("Hello", end=" ")
+print("World")                              # Output: Hello World
+```
+
+**Formatting Output**
+```python
+name = 'Rohit'
+age = 22
+
+# Using commas
+print("Hello, my name is", name, "and I am", age, "years old.")
+
+# Using f-strings (recommended)
+print("Hello, my name is {name} and I am {age} years old.")
+
+# Using .format() method
+print("Hello, my name is {} and I am {} years old.".format(name, age))
+
+# Using % operator (older method)
+print("Hello, my name is %n and I am %a years old." % (name, age))
+```
+
 ---
+<p align="left">
+    <a href="https://github.com/xerohit/Xero-to-Python/blob/main/01_Variables_&_Data_Types/01_Variables_&_Data_Types.md"><i><< Variables & Data Types</i></a>
+</p>
 <p align="right">
-    <a href="https://github.com/xerohit/Xero-to-Python/blob/main/01_Variables_&_Data_Types/01_Variables_&_Data_Types.md"><i>Variables & Data Types >></i></a>
+    <a href="https://github.com/xerohit/Xero-to-Python/blob/main/02_Operators/02_Operators.md"><i>Operators >></i></a>
 </p>
 
